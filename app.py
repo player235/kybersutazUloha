@@ -6,14 +6,18 @@ app = Flask(__name__)
 SECRET_KEY = os.environ[‘secret_key’]
 FLAG = os.environ[‘flag’]
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def user():
+    return "<p>Hello user, are you searching for a flag?</p>"
+
+@app.route('/flag', methods=['GET', 'POST'])
 def flag():
     if request.method == 'POST':
         if request.form['password'] == SECRET_KEY:
             return "<p>" + FLAG + "</p>"
         else:
             error = 'Invalid username/password'
-    return """<form action="/" method="POST">
+    return """<form action="/flag" method="POST">
   <label for="fname">User:</label><br>
   <input type="text" id="fname" name="fname" value="Admin"><br>
   <label for="lname">Password:</label><br>
