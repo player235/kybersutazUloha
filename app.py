@@ -8,7 +8,11 @@ FLAG = os.environ[‘flag’]
 
 @app.route('/')
 def user():
-    return "<p>Hello user, are you searching for a flag?</p>"
+    if request.cookies.get('userID') == "c087422e5a1357e0c37bd6366f5c4af0":
+        return redirect(url_for('flag'))
+    resp = make_response("<p>Hello user, too sad you're only an user. You can't do anything!</p>")
+    resp.set_cookie('userID', "")
+    return resp
 
 @app.route('/flag', methods=['GET', 'POST'])
 def flag():
