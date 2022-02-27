@@ -3,12 +3,13 @@
 from flask import Flask, jsonify, make_response, request, redirect, url_for
 app = Flask(__name__)
 
+SECRET_KEY = os.environ[‘secret_key’]
 FLAG = os.environ[‘flag’]
 
 @app.route('/', methods=['GET', 'POST'])
 def flag():
     if request.method == 'POST':
-        if request.form['password'] == "6044fac47c2c688a213fe26dcbe3bbdd15be29b083bee0777c4d81b050373a22":
+        if request.form['password'] == SECRET_KEY:
             return "<p>" + FLAG + "</p>"
         else:
             error = 'Invalid username/password'
